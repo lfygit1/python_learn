@@ -22,6 +22,7 @@ driver = webdriver.Chrome(options=option)
 driver.get('https://www.baidu.com')
 
 driver.maximize_window()   # 浏览器最大化
+driver.set_window_size(1920,1080)
 size =driver.get_window_size() 
 print(size)
 
@@ -30,3 +31,4 @@ time.sleep(2)
 
 
 driver.quit()  # 关闭浏览器
+# driver.close()
