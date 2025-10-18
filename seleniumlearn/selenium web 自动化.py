@@ -14,21 +14,18 @@ selenium 是一个自动化测试工具，用于测试浏览器，可以模拟�
 """
 # 模拟浏览器相关操作
 # 1.创建浏览器对象
-from selenium import webdriver
-import time
-option = webdriver.ChromeOptions()
-option.add_experimental_option('detach',True) # 保持打开状态
-driver = webdriver.Chrome(options=option)
-driver.get('https://www.baidu.com')
+from selenium import webdriver  # 导入selenium模块
+from selenium.webdriver.chrome.service import Service  # 导入Service模块
+from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
+import time  # 导入time模块
 
-driver.maximize_window()   # 浏览器最大化
-# driver.set_window_size(800,1080)
-# size =driver.get_window_size()
-# print(size)
+option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
+option.binary_location = r"D:\software\Google\Chrome\Application\chrome.exe"   # 指定浏览器路径
+driver = webdriver.Chrome(options=option)  # 创建浏览器对象
 
+driver.get('https://www.baidu.com')  # 打开百度首页
+driver.maximize_window()            # 最大化浏览器窗口
+driver.set_window_size(800,400)  # 设置浏览器窗口大小
 
-time.sleep(2)
-
-
+time.sleep(2)  # 暂停2秒
 driver.quit()  # 关闭浏览器
-# driver.close()
