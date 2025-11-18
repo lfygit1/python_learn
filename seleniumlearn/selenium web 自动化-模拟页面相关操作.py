@@ -27,7 +27,7 @@ from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverMa
 import time  # 导入time模块
 
 option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
-option.binary_location = r"D:\software\Google\Chrome\Application\chrome.exe"   # 指定浏览器路径
+option.binary_location = r"E:\chrome\Chrome\Application\chrome.exe"   # 指定浏览器路径
 driver = webdriver.Chrome(options=option)  # 创建浏览器对象
 
 driver.get('https://www.baidu.com')  # 打开百度首页

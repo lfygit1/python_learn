@@ -121,19 +121,58 @@
     # print(f'元素标签：{element}')
  
 
-from playwright.sync_api import sync_playwright 
+# from playwright.sync_api import sync_playwright 
 # 启动playwright driver进程
-p = sync_playwright().start()
-browser = p.chromium.launch(headless = False)
-executable_path=r"D:\software\Google\Chrome\Application\chrome.exe"
-page = browser.new_page()
-page.goto('https://www.bing.com')   # 导航到bing首页
-page.set_viewport_size({'width':1920,'height':1080}) # 设置浏览器窗口视口大小为 1920x1080 分辨率
+# p = sync_playwright().start()
+# browser = p.chromium.launch(headless = False)
+# executable_path=r"D:\software\Google\Chrome\Application\chrome.exe"
+# page = browser.new_page()
+# page.goto('https://www.bing.com')   # 导航到bing首页
+# page.set_viewport_size({'width':1920,'height':1080}) # 设置浏览器窗口视口大小为 1920x1080 分辨率
 
-print(page.title())  # 打印页面标题
-# 设置打开浏览器后等待5秒
-page.wait_for_timeout(5000)
-# 查询
-page.locator('#sb_form_q').fill('随便')
-page.wait_for_timeout(2000)
-page.locator("a[href*='images']").click()  # 点击图片   不会点击，暂时未找到原因
+# print(page.title())  # 打印页面标题
+# # 设置打开浏览器后等待5秒
+# page.wait_for_timeout(5000)
+# # 查询
+# page.locator('#sb_form_q').fill('随便')
+# page.wait_for_timeout(2000)
+# page.locator("a[href*='images']").click()  # 点击图片   不会点击，暂时未找到原因
+
+"""
+页面中的CSS选择器定位
+"""
+
+# 1.CSS结合基本属性定位（如：id，class，name，tagName等）
+# CSS选择器结合id属性定位元素  CSS语法中 # 代表id属性      . 代表class属性
+from selenium import webdriver  # 导入selenium模块
+from selenium.webdriver.chrome.service import Service  # 导入Service模块
+from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
+import time  # 导入time模块
+from selenium.webdriver.common.by import By  # 必须导入 By 类
+
+option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
+option.add_experimental_option("detach", True)    # 设置浏览器不自动关闭
+option.binary_location = r"E:\chrome\Chrome\Application\chrome.exe"   # 指定浏览器路径
+driver = webdriver.Chrome(options=option)  # 创建浏览器对象
+time.sleep(2)   # 等待两秒
+driver.maximize_window()       # 最大化浏览器窗口
+driver.get('https://www.baidu.com')  # 打开百度首页
+# el1 = driver.find_element(By.CSS_SELECTOR, '#chat-textarea')   # 通过CSS选择器结合id属性定位元素
+# print(el1)
+
+
+# CSS选择器结合class属性定位元素
+# el2 = driver.find_element(By.CSS_SELECTOR,'.chat-input-textarea.chat-input-scroll-style')
+# print(el2)
+
+# CSS选择器结合标签名属性定位元素
+el3 = driver.find_element(By.CSS_SELECTOR,'textarea')  # 通过CSS选择器结合标签名（尽可能找唯一的标签名）属性定位元素
+print(el3)
+
+
+# CSS结合其他属性定位元素
+el4 = driver.find_element(By.CSS_SELECTOR,'[name="tj_briicon"]')
+print(el4)
+
+
+# CSS标签结合其他属性定位元素
