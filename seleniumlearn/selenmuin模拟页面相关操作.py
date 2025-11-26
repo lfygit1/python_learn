@@ -10,6 +10,9 @@ option.binary_location = r"D:\software\Google\Chrome\Application\chrome.exe" # �
 service = Service(ChromeDriverManager().install()) # 创建Service对象
 driver = webdriver.Chrome(service=service, options=option) # 创建浏览器对象
 
+# 使用chromewebdriver.exe打开chrome浏览器   chromewebdriver.exe 的下载地址如下：（113-142版本）
+# https://www.cnblogs.com/aiyablog/articles/17948703
+
 # 使用driver实例调用get方法
 driver.get('https://www.baidu.com') # 打开指定网址
 

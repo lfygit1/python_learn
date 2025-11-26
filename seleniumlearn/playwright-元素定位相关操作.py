@@ -146,14 +146,18 @@
 # CSS选择器结合id属性定位元素  CSS语法中 # 代表id属性      . 代表class属性
 from selenium import webdriver  # 导入selenium模块
 from selenium.webdriver.chrome.service import Service  # 导入Service模块
-from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
+# from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
 import time  # 导入time模块
 from selenium.webdriver.common.by import By  # 必须导入 By 类
+service = Service(executable_path=r"D:\software\Chrome\Google\Chrome\Application\chromedriver.exe")
+
 
 option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
 option.add_experimental_option("detach", True)    # 设置浏览器不自动关闭
-option.binary_location = r"E:\chrome\Chrome\Application\chrome.exe"   # 指定浏览器路径
-driver = webdriver.Chrome(options=option)  # 创建浏览器对象
+option.binary_location = r"D:\software\Chrome\Google\Chrome\Application\chrome.exe"   # 指定浏览器路径
+# service = Service(ChromeDriverManager().install())  # 创建Service对象
+
+driver = webdriver.Chrome(service=service,options=option)  # 创建浏览器对象
 time.sleep(2)   # 等待两秒
 driver.maximize_window()       # 最大化浏览器窗口
 driver.get('https://www.baidu.com')  # 打开百度首页
@@ -167,12 +171,12 @@ driver.get('https://www.baidu.com')  # 打开百度首页
 
 # CSS选择器结合标签名属性定位元素
 el3 = driver.find_element(By.CSS_SELECTOR,'textarea')  # 通过CSS选择器结合标签名（尽可能找唯一的标签名）属性定位元素
-print(el3)
+print('el3',el3)
 
 
 # CSS结合其他属性定位元素
 el4 = driver.find_element(By.CSS_SELECTOR,'[name="tj_briicon"]')
-print(el4)
+print('el4',el4)
 
 
 # CSS标签结合其他属性定位元素
