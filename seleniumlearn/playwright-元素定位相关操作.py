@@ -151,9 +151,8 @@ import time  # 导入time模块
 from selenium.webdriver.common.by import By  # 必须导入 By 类
 service = Service(executable_path=r"D:\software\Chrome\Google\Chrome\Application\chromedriver.exe")
 
-
 option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
-option.add_experimental_option("detach", True)    # 设置浏览器不自动关闭
+option.add_experimental_option("detach", True)    # 设置浏览器不自动关闭  detach 在这里的意思是：分离/脱离：让浏览器进程与自动化脚本进程分离，即使脚本执行结束或异常退出，浏览器也不会被自动关闭
 option.binary_location = r"D:\software\Chrome\Google\Chrome\Application\chrome.exe"   # 指定浏览器路径
 # service = Service(ChromeDriverManager().install())  # 创建Service对象
 
@@ -170,13 +169,26 @@ driver.get('https://www.baidu.com')  # 打开百度首页
 # print(el2)
 
 # CSS选择器结合标签名属性定位元素
-el3 = driver.find_element(By.CSS_SELECTOR,'textarea')  # 通过CSS选择器结合标签名（尽可能找唯一的标签名）属性定位元素
-print('el3',el3)
+# el3 = driver.find_element(By.CSS_SELECTOR,'textarea')  # 通过CSS选择器结合标签名（尽可能找唯一的标签名）属性定位元素
+# print('el3',el3)
 
 
-# CSS结合其他属性定位元素
-el4 = driver.find_element(By.CSS_SELECTOR,'[name="tj_briicon"]')
-print('el4',el4)
+# # CSS结合其他属性定位元素
+# el4 = driver.find_element(By.CSS_SELECTOR,'[name="tj_briicon"]')
+# print('el4',el4)
 
 
-# CSS标签结合其他属性定位元素
+# CSS标签结合其他属性定位元素   
+
+# el5=driver.find_element(By.CSS_SELECTOR,'form#form')   # 通过CSS标签结合id属性定位元素
+# print('el5',el5)
+
+# el6=driver.find_element(By.CSS_SELECTOR,'form.fm')   # 通过CSS标签结合class属性定位元素
+# print('el6',el6) 
+
+# el7=driver.find_element(By.CSS_SELECTOR,"form[name='f']") 
+# print('el7',el7)
+
+# CSS层级定位
+el8=driver.find_element(By.CSS_SELECTOR,"a[id='result_logo']>img[class='index-logo-src']")
+print('el8',el8)
