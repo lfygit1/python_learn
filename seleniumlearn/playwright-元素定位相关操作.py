@@ -149,7 +149,7 @@ from selenium.webdriver.chrome.service import Service  # 导入Service模块
 # from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
 import time  # 导入time模块
 from selenium.webdriver.common.by import By  # 必须导入 By 类
-service = Service(executable_path=r"D:\software\Chrome\Google\Chrome\Application\chromedriver.exe")
+service = Service(executable_path=r"D:\software\Chrome\Google\Chrome\Application\chromedriver.exe") # 创建Service对象并指定驱动程序路径
 
 option = webdriver.ChromeOptions()  # 创建ChromeOptions对象
 option.add_experimental_option("detach", True)    # 设置浏览器不自动关闭  detach 在这里的意思是：分离/脱离：让浏览器进程与自动化脚本进程分离，即使脚本执行结束或异常退出，浏览器也不会被自动关闭
@@ -190,5 +190,43 @@ driver.get('https://www.baidu.com')  # 打开百度首页
 # print('el7',el7)
 
 # CSS层级定位
-el8=driver.find_element(By.CSS_SELECTOR,"a[id='result_logo']>img[class='index-logo-src']")
+el8=driver.find_element(By.CSS_SELECTOR,"a[id='result_logo']>img[class='index-logo-src']")  # 通过CSS层级定位元素
 print('el8',el8)
+
+# CSS索引定位   索引从1开始
+el9=driver.find_element(By.CSS_SELECTOR,"a:nth-child(1)")  # 选择正数第一个元素
+print('el9',el9)
+
+el10=driver.find_element(By.CSS_SELECTOR,"div[id='s-top-left']>a:nth-last-child(4)")  # 选择倒数第四个元素
+print(el10.text) # 获取元素文本
+
+# CSS 模糊匹配
+"""
+在Playwright或Selenium等自动化测试框架中，使用CSS选择器进行模糊匹配适用于以下几种情况：
+1. **动态内容定位**
+   - 当页面元素的属性值部分固定、部分变化时（例如动态ID或class）
+   - 示例：`[class*='button']` 可以匹配所有包含"button"字符串的class属性
+
+2. **局部文本匹配**
+   - 需要根据部分文本内容定位元素，而非精确匹配全部文本
+   - 示例：`a:text('*=图片')` 可以匹配所有包含"图片"二字的链接文本
+
+3. **不确定完整属性值**
+   - 当无法预知元素属性的完整值，只知道其中一部分关键字时
+   - 示例：`[href*='images']` 可以匹配所有href属性包含"images"子串的元素
+
+4. **批量选择相似元素**
+   - 需要选取具有相同特征前缀或后缀的一组元素
+   - 示例：`[id^='user']` 匹配所有以"user"开头的ID元素
+
+5. **避免频繁更新选择器**
+   - 当前端组件库自动生成的类名有变动部分时，使用模糊匹配可提高稳定性
+   - 示例：`[class*='ant-btn']` 可以适配Ant Design按钮组件的各种变体
+
+模糊匹配能够增强选择器的灵活性和健壮性，在面对动态网页内容时特别有用。
+"""
+
+el11 = driver.find_element(By.CSS_SELECTOR, "a[class^='hot']") # 模糊匹配以"hot"开头的class属性的元素
+print(el11.text) 
+
+
