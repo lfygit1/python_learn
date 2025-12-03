@@ -23,19 +23,21 @@ driver = webdriver.Chrome(service=service,options=option)  # 创建浏览器对�
 time.sleep(2)   # 等待两秒
 driver.maximize_window()       # 最大化浏览器窗口
 driver.get('https://www.baidu.com')  # 打开百度首页
+# option.add_argument('--headless')  # 无头模式，不显示浏览器界面，提高速度
+# 1.xpath 结合基本属性定位元素  .//表示当前节点下的所有子节点  []表示要根据属性找元素  @后面跟属性的值，表示要通过哪个属性定位 
+# el1= driver.find_element(By.XPATH,".//li[@class='hotsearch-item even']")  # 通过xpath结合属性定位元素
+# print('el1:',el1.text)
 
-# 1.xpath 结合基本属性定位元素
-el1= driver.find_element(By.XPATH,".//li[@class='hotsearch-item even']")  # 通过xpath结合属性定位元素
-print('el1:',el1.text)
-
-# #  通过文本内容定位
-# el2 = driver.find_element(By.XPATH, "//span[contains(text(), '围观')]")
-# print('el2:',el2.text)
-
+# el11= driver.find_element(By.XPATH,".//li[@class='hotsearch-item even' and @data-index= '6']")  # 多属性定位时，多个属性之间用and连接
+# print('el11:',el11.text) 
+#   通过文本内容定位  在网页中><中间的为文本值，这样的文本值可用文本定位
+el2 = driver.find_element(By.XPATH, "//a[text()='更多']")
+print('el2:',el2.text)
+ 
 # 定位第一个热搜项
 # el3 = driver.find_element(By.XPATH, "//li[1]//span[@class='title-content-title']")
 # print(el3.text)
 
 # # 通过父元素定位
-# el4 = driver.find_element(By.XPATH, "//div[@id='hotsearch-content-wrapper']//li[2]//span[@class='title-content-title']")
-# print(el2.text)
+# el4 =  driver.find_element(By.XPATH,"//*[@id='s-top-left']/a[4]")
+# print(el4.text)
