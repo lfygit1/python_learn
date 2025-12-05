@@ -31,13 +31,43 @@ driver.get('https://www.baidu.com')  # 打开百度首页
 # el11= driver.find_element(By.XPATH,".//li[@class='hotsearch-item even' and @data-index= '6']")  # 多属性定位时，多个属性之间用and连接
 # print('el11:',el11.text) 
 #   通过文本内容定位  在网页中><中间的为文本值，这样的文本值可用文本定位
-el2 = driver.find_element(By.XPATH, "//a[text()='更多']")
-print('el2:',el2.text)
+# el2 = driver.find_element(By.XPATH, "//a[text()='更多']")
+# print('el2:',el2.text)
  
 # 定位第一个热搜项
 # el3 = driver.find_element(By.XPATH, "//li[1]//span[@class='title-content-title']")
 # print(el3.text)
 
-# # 通过父元素定位
-# el4 =  driver.find_element(By.XPATH,"//*[@id='s-top-left']/a[4]")
-# print(el4.text)
+# # 通过层级关系定位
+# el4 = driver.find_element(By.XPATH, "//div[@class='chat-input-container']/div/textarea")    # 从上到下定位
+# print('el4',el4.text) 
+# el5 =  driver.find_element(By.XPATH,"//div[@id= 'input-root']/parent::div")   # 从下到上定位
+# print('el5:',el5.text)
+# el6 = driver.find_element(By.XPATH, "//input[@class='s_ipt']/preceding-sibling::span")   # 从当前节点向前找兄弟节点
+# print('el6:',el6.text)
+
+# el7 = driver.find_element(By.XPATH, "//input[@class='s_ipt']/following-sibling::span")   # 从当前节点向后找兄弟节点
+# print('el7:',el7.text)
+
+# 索引定位
+# el8 = driver.find_element(By.XPATH, "//div[@id='s-top-left']/a[1]")   # 索引定位第一个a标签   索引从1开始
+# print('el8:',el8.text)
+
+# el9 = driver.find_element(By.XPATH, "//div[@id='s-top-left']/a[last()]")   # 索引定位最后一个a标签   last()表示索引最后一个元素
+# print('el9:',el9.text)
+
+# el10 = driver.find_element(By.XPATH, "//div[@id='s-top-left']/a[last()-1]")   # 索引定位倒数第二个a标签   last()-1表示索引倒数第二个元素
+# print('el10:',el10.text)
+
+# 模糊匹配定位
+el11 = driver.find_element(By.XPATH, "//div[contains(@aria-label,'热')]")   # 包含匹配
+print('el11:',el11.text)
+
+el12 = driver.find_element(By.XPATH, "//div[starts-with(@aria-label,'百度')]")   # 前缀匹配
+print('el12:',el12.text)
+
+# el13 = driver.find_element(By.XPATH, "//div[ends-with(@aria-label,'热搜')]")   # 后缀匹配
+# print('el13:',el13.text)   # 不支持XPath 2.0的ends-with()函数  所以这里执行会报错
+
+el14 = driver.find_element(By.XPATH, "//div[matches(@aria-label,'百度一下')]")   # 正则匹配
+print('el14:',el14.text)
