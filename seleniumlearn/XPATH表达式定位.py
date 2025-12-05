@@ -69,5 +69,5 @@ print('el12:',el12.text)
 # el13 = driver.find_element(By.XPATH, "//div[ends-with(@aria-label,'热搜')]")   # 后缀匹配
 # print('el13:',el13.text)   # 不支持XPath 2.0的ends-with()函数  所以这里执行会报错
 
-el14 = driver.find_element(By.XPATH, "//div[matches(@aria-label,'百度一下')]")   # 正则匹配
-print('el14:',el14.text)
+# el14 = driver.find_element(By.XPATH, "//div[matches(@aria-label,'百度一下')]")   # 正则匹配
+# print('el14:',el14.text)   # 不支持XPath 2.0的matches函数  所以这里执行会报错
