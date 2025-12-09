@@ -1,13 +1,7 @@
-"""
-模拟操作页面元素
-1. 模拟按钮点击操作
-2. 文本框操作 
-3. 获取元素文本
-4. 获取元素属性
-"""
+# 模拟键盘操作  1.输入文本   2.模拟按键操作
 
-# 1. 模拟按钮点击操作
-# 语法：element.click()   参数值 ：无   返回值：无
+from selenium.webdriver.common.action_chains import ActionChains
+
 from selenium import webdriver  # 导入selenium模块
 from selenium.webdriver.chrome.service import Service  # 导入Service模块
 # from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
@@ -23,26 +17,18 @@ option.binary_location = r"D:\software\Chrome\Google\Chrome\Application\chrome.e
 driver = webdriver.Chrome(service=service,options=option)  # 创建浏览器对象
 time.sleep(0.2)   # 等待0.5秒
 driver.maximize_window()       # 最大化浏览器窗口
-driver.get('https://www.baidu.com')  # 打开百度首页
+driver.get('http://www.baidu.com')  # 打开鼠标点击测试网站
 
-# 进行元素定位   返回元素对象
-# el1 = driver.find_element(By.XPATH,".//*[@id='chat-submit-button']")   # 通过xpath结合文本内容定位元素
-
-# 针对元素对象进行模拟操作
-# el1.click()   # 点击元素
-
-# 2. 文本框操作  包含清空和输入操作
-# 语法： 清空：element.clear()   输入：element.send_keys('hello')
-el2 = driver.find_element(By.XPATH,"//*[@id='chat-textarea']")  # 定位输入框
-el2.clear()  # 清空输入框
-el2.send_keys('hello') # 输入框中输入文本
-time.sleep(1)  # 暂停1秒
-el1 = driver.find_element(By.XPATH,".//*[@id='chat-submit-button']")  # 定位提交按钮
-print(el1.text)   # 3. 获取元素文本
-a=el1.get_attribute('id')  # 4. 获取元素属性
-print(a)
-el1.click()  # 点击提交按钮
+# 1.输入文本  当鼠标光标在输入框内时，可以使用 send_keys() 方法输入文本
+ActionChains(driver).send_keys("hello world").perform()
 
 
 
+# 2.当 鼠标光标在输入框外时，可以使用 ActionChains 类的 send_keys_to_element() 方法输入文本
+# driver.get(r'D:\python_learn\seleniumlearn\鼠标-键盘操作测试.html')  # 打开鼠标点击测试网站
+# el2= driver.find_element(By.XPATH,"//input[@id='textInput']")  # 通过xpath定位输入框
+# ActionChains(driver).send_keys_to_element(el2,"hello world").perform()
 
+
+# 3.模拟按键操作   按键的按下与松开
+ActionChains(driver).send_keys(Keys.CONTROL+'a').perform() # 按下 CTRL+a
