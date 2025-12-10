@@ -19,9 +19,9 @@ time.sleep(0.2)   # 等待0.5秒
 driver.maximize_window()       # 最大化浏览器窗口
 driver.get('http://www.baidu.com')  # 打开鼠标点击测试网站
 
+from selenium.webdriver.common.keys import Keys  # 导入 Keys 类
 # 1.输入文本  当鼠标光标在输入框内时，可以使用 send_keys() 方法输入文本
-ActionChains(driver).send_keys("hello world").perform()
-
+# ActionChains(driver).send_keys("hello world").perform()
 
 
 # 2.当 鼠标光标在输入框外时，可以使用 ActionChains 类的 send_keys_to_element() 方法输入文本
@@ -30,5 +30,16 @@ ActionChains(driver).send_keys("hello world").perform()
 # ActionChains(driver).send_keys_to_element(el2,"hello world").perform()
 
 
-# 3.模拟按键操作   按键的按下与松开
-ActionChains(driver).send_keys(Keys.CONTROL+'a').perform() # 按下 CTRL+a
+# 3.模拟组合按键操作   
+el1=driver.find_element(By.XPATH,"//textarea[@id='chat-textarea']")
+ActionChains(driver).send_keys_to_element(el1,"hello world").perform()
+# el1.send_keys(Keys.CONTROL+'a')
+# ActionChains(driver).send_keys(Keys.CONTROL+'a').perform() # 按下 CTRL+a
+
+# 4.模拟单个按键操作
+# ActionChains(driver).send_keys(Keys.BACK_SPACE).perform()
+
+# 模拟多次删除操作
+for i in range(5):   # 模拟输入5个回车键
+    ActionChains(driver).send_keys(Keys.BACK_SPACE).perform()
+    time.sleep(0.5)
