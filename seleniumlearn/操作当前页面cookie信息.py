@@ -76,3 +76,4 @@ driver.delete_all_cookies()
 
 cookies = driver.get_cookies()
 print(cookies)
+
