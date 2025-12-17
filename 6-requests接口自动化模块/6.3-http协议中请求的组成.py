@@ -7,6 +7,8 @@
     # 作用：提供关于请求的附加信息
     # 常见头部字段： Host：目标服务器的主机名 、 User-Agent：客户端的信息（浏览器类型等） 
     #  Content-Type：发送内容的格式 、 Authorization：身份验证信息
+    #  content-type  规定了请求体的数据格式，如果是json数据，则Content-Type为application/json；
+    #  如果是表单数据，则Content-Type为application/x-www-form-urlencoded；如果为txt数据，则Content-Type为text/plain
     # 3. 空行（Empty Line）
     # 作用：分隔请求头和请求体
     # 特点：必须存在，是一个完全空白的行
