@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "7-pytest单元测试框架模块"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

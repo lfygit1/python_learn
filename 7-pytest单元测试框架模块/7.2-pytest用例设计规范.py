@@ -18,4 +18,6 @@
 # 如 test_demo 中的 test_demo2.py
 
 # pytest 在vscode中的执行方法：
-# 新建power shell终端，cd 到项目目录下，输入 pytest 运行
+# 新建power shell终端，cd 到项目目录下，输入 pytest 运行 或者在任意位置输入案例所在路径 
+# pytest D:\python_learn\7-pytest单元测试框架模块\test_demo\test_demo4.py -v -s
+# 只执行脚本中的某条案例：pytest test_demo4.py::TestCase::test_case01 -v -s
