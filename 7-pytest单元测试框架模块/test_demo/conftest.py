@@ -1,5 +1,5 @@
 import pytest
-@pytest.fixture(scope="session",autouse=True) 
+@pytest.fixture(scope="session") 
 def init_session():
     print("开始执行会话级别的前置")
     yield
