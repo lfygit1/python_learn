@@ -26,3 +26,14 @@ parametrize参数详解（了解）
 # 做法其实与@pytest.fixture(params)一样，但使用了@pytest.mark.parametrize相当于参数化了fixture，而不是只有固定的一套数据传入使用
 
 # 示例参考：test_demo1文件夹下的 test_demo11.py
+
+
+# 三、ids参数用法
+# ids参数的作用是标记子用例执行名称，增加可读性 ，中文需要转码
+# ids参数可以给参数化的用例起名字，参数化的用例会以列表的方式返回，列表的每个元素是一个元组,
+# 元组中第一个元素是参数化的用例名字，第二个元素是参数化的用例返回值
+# ids参数可以和argnames参数一起使用，也可以单独使用
+# ids参数可以和argvalues参数一起使用，也可以单独使用
+
+# 示例参考：test_demo1文件夹下的 test_demo12.py
+
