@@ -37,3 +37,8 @@ parametrize参数详解（了解）
 
 # 示例参考：test_demo1文件夹下的 test_demo12.py
 
+# 四、scope参数用法
+# scope参数的作用范围与fixture一致，当inderict参数为True时，scope参数作用域为函数级别，当inderict参数为False时，scope参数作用域为模块级别
+# scope 的范围会覆盖fixture的scope范围，如果同一个被调用的fixture有多个parametrize定义了scope，取第一条的范围
+
+# 实例参考：test_demo1文件夹下的 test_demo13.py
