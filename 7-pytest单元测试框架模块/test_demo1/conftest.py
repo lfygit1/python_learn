@@ -22,3 +22,8 @@ def inderict_fixture1(request):
 def inderict_fixture2(request):
     pwd = request.param
     print(f"传入的密码：{pwd}")
+
+@pytest.fixture()
+def inderict_fixture3(request):
+    userinfo = request.param
+    print(f"传入的元组：{userinfo}")
