@@ -42,3 +42,8 @@ parametrize参数详解（了解）
 # scope 的范围会覆盖fixture的scope范围，如果同一个被调用的fixture有多个parametrize定义了scope，取第一条的范围
 
 # 实例参考：test_demo1文件夹下的 test_demo13.py
+
+# 五、parametrize 与其他mark一起使用
+# 参数化与其他mark一起使用，参数化的用例会以列表的方式返回，列表的每个元素是一个元组 
+# 实例参考：test_demo1文件夹下的 test_demo14.py
+
