@@ -39,4 +39,4 @@ class  TestLogout():
 # 以上告警信息的意思是没有对标签进行注册，需要我们 自行注册标签
 
 # 如果想运行longin标签下的用例，但是不想运行login中faild的用例，那么可以这样运行：
-# pytest -m "Login and not faild" test_demo18.py -v -s
+# pytest -m "Login and not faild" test_demo18.py -v -s  
