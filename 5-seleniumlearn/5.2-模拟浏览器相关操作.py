@@ -19,3 +19,4 @@ driver.set_window_position(100,100) # 设置浏览器窗口位置
 time.sleep(2)  # 暂停2秒
 driver.quit()  # 关闭浏览器
 
+# chrome 浏览器驱动国内华为云下载地址：  https://mirrors.huaweicloud.com/chromedriver/

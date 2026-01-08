@@ -2,9 +2,9 @@
 from selenium import webdriver # 导入selenium模块
 from selenium.webdriver.chrome.service import Service  # 导入Service模块
 from webdriver_manager.chrome import ChromeDriverManager  # 导入ChromeDriverManager模块
-import time
+import time  # 导入time模块
 option = webdriver.ChromeOptions() # 创建ChromeOptions对象
-option.binary_location = r"D:\software\Google\Chrome\Application\chrome.exe" # 指定浏览器路径
+option.binary_location = r"D:\software\Chrome\Google\Chrome\Application\chrome.exe" # 指定浏览器路径
 
 # 使用Service管理ChromeDriver
 service = Service(ChromeDriverManager().install()) # 创建Service对象
