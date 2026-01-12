@@ -10,7 +10,7 @@ def driver():
     options = Options()       # 创建 Chrome 选项对象
     options.add_experimental_option("detach", True) # 设置浏览器不自动关闭
 
-    service = Service(r"D:\software\Chrome\Application\chromedriver.exe")  # 创建 ChromeDriver 服务对象，指定 ChromeDriver 的路径
+    service = Service(r"E:\chrome\Chrome\Application\chromedriver.exe")  # 创建 ChromeDriver 服务对象，指定 ChromeDriver 的路径
     driver = webdriver.Chrome(service=service, options=options)       # 创建 Chrome 浏览器实例，传入服务和选项参数
     driver.maximize_window()  # 最大化浏览器窗口
     yield driver      # 暂停并返回 driver 实例，供测试函数使用
@@ -58,3 +58,5 @@ class TestBing01:
 # 如果是在项目根目录（D:\python_learn>）下执行命令
 # pytest D:\python_learn\7-pytest单元测试框架模块\test_demo4\test_demo25.py  --html=./report.html --self-contained-html -v
 # 生成的html文件会保存在根目录下，打开之后可以看到详细信息  不太理解
+
+# 原因：路径设计的层数太深，实际上是没有问题的
