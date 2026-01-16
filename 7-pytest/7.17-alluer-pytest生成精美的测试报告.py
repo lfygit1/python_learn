@@ -9,7 +9,7 @@ pip install allure-pytest
 解压并放置到任意目录下，把该目录下的bin 目录加入到系统环境变量 PATH 中   E:\python\allure-2.36.0\allure-2.36.0\bin
 
 2. 运行测试用例
-pytest -s -v -m "smoke" --alluredir ./report/result
+pytest test_demo.py --alluredir ./result
 
 3. 生成测试报告
 allure generate ./report/result -o ./report/html --clean
