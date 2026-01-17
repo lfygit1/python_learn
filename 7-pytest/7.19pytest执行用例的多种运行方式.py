@@ -38,7 +38,23 @@ pytest.main(['-s', '-v', 'test_demo.py'])
 
 四、通过pytest.ini运行
 pytest.ini 运行是优先级最高的一种运行方式，可以改变pytest 的默认运行方式
+存放位置：一般在项目的根目录下
+编码格式：必须是ANSI编码格式，可以使用notepad++修改编码格式
+pytest.ini文件中尽量不要有中文，容易出问题
+配置了ini文件后，不管哪种方法运行测试用例，都会在运行前去读取ini文件中的配置信息
 可以使用  pytest -h 查看pytest的帮助信息
+常用参数：
+addopts = -s -v    命令行参数，用空格分隔
+testpath = ./   测试路径，默认为当前目录
+markers 标记参数  赋值方式为key:value
+
+markers = 
+smoke: 冒烟用例
+login: 登录用例
+
+python_files = *.py  模块的命名规则
+pyhton_classes = Test*   类的命名规则
+python_functions = test*   方法的命名规则
 """
 
 
