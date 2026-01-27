@@ -222,15 +222,135 @@ if __name__ == "__main__":
     library.show_all_books()
     
     # 测试查找图书功能
-    print("\n测试查找图书：")
-    found_book = library.find_book("python编程")
-    if found_book:
-        print(f"找到图书: {found_book}")
-    else:
-        print("未找到图书")
+    # print("\n测试查找图书：")
+    # found_book = library.find_book("python编程")
+    # if found_book:
+    #     print(f"找到图书: {found_book}")
+    # else:
+    #     print("未找到图书")
     
-    found_book = library.find_book("不存在的书")
-    if found_book:
-        print(f"找到图书: {found_book}")
+    # found_book = library.find_book("不存在的书")
+    # if found_book:
+    #     print(f"找到图书: {found_book}")
+    # else:
+    #     print("未找到图书")
+
+# 1、定义一个函数 calculate_area,接收圆的半径作为参数，返回圆的面积(取3.14159);  
+#调用该函数，分别计算半径为5、8的圆的面积并输出；  
+#增加参数校验:如果半径≤0,返回提示字符串"半径必须为正数"。 
+def calculate_area(radius):
+    if radius <= 0:
+        return "半径必须为正数"
     else:
-        print("未找到图书")
+        return 3.14159 * 2 ** 2
+# print(calculate_area(8))
+
+
+
+
+
+#2、定义一个函数calculate_sum,支持以下功能: 
+#计算多个数字的和(可变参数*args); 
+#可选参数is_ average (默认值False),若为True，返回平均值而非总和； 
+def calculate_sum(*args, is_average=False):
+    total = sum(args)
+    if is_average:
+        return total / len(args)
+    else:
+        return total
+
+print(calculate_sum(1,2,3,4,5,is_average=True))
+
+
+#3、定义一个Person类，包含: 
+#实例属性:name (姓名)、age (年龄) 
+#实例方法:introduce0.输出"我叫XX，今年XX岁"； 
+#创建Person类的实例(如:姓名"张三·，年龄20),调用introduce0方法； 
+#给类增加个类属性species-"人类”，并输出该属性。 
+
+#4、基于题目3的Person类，定义子类Student，新增: 
+#实例属性:studentid(学号)、score (成绩)；
+#重写introduce0方法，输出"我叫 XX,学号XX，成绩X分； 
+#新增实例方法:get grade0,根据成绩返回等级(>90:A,≥80:B,≥60:C,<60:D); 
+#创建Student实例(姓名"李四"，年龄18，学号"2024001",成绩85),调用introduce0和get_grade0。
+class Person:
+    species = "人类"
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def introduce(self):
+        print(f"我叫{self.name}，今年{self.age}岁")
+
+class Student(Person):
+    def __init__(self, name, age, studentid, score):
+        super().__init__(name, age)
+        self.studentid = studentid
+        self.score = score
+    def introduce(self):
+        print(f"我叫{self.name}，学号{self.studentid}，成绩{self.score}分")
+    def get_grade(self):
+        if self.score > 90:
+            return "A"
+        elif self.score >= 80:
+            return "B"
+        elif self.score >= 60:
+            return "C"
+        else:
+            return "D"
+stu1=Student("李四",18,"2024001",85)
+# stu1.introduce()
+# print(stu1.get_grade())
+
+    
+
+
+
+
+
+
+#5、定义一个ShoppingCart类，实现购物车功能: 
+#实例属性: items (列表，存储商品字典，格式:(Cname":商品名，"price:价格，"quantity':数量)):  
+#方法add item(name,price.quantity=1):添加商品(价格>0、数量≥1才生效，否则提示错误)； 
+#方法remove_item(name):删除指定名称的商品(不存在则提示)； 
+#方法calculate_total:计算购物车总金额，返回数值； 
+#方法show_cart:打印购物车所有商品和总金额；
+class ShoppingCart():
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, name, price, quantity=1):
+        if price <= 0 or quantity < 1:
+            print("价格必须大于0，数量必须大于等于1")
+        else:
+            item = {"name": name, "price": price, "quantity": quantity}
+            self.items.append(item)
+
+    def remove_item(self, name):
+        for item in self.items:
+            if item["name"] == name:
+                self.items.remove(item)
+                return
+        return "未找到该商品"
+    def calculate_total(self):
+        total = 0
+        for item in self.items:
+            total += item["price"] * item["quantity"]
+        return total
+    def show_cart(self):
+        total = self.calculate_total()
+        print("购物车中的商品:")
+        for item in self.items:
+            print(f"商品名:{item['name']},价格:{item['price']},数量:{item['quantity']}")
+        return(f"总金额:{total}")
+f=ShoppingCart()
+f.add_item("手机", 5000, 2)
+f.add_item("电脑", 10000, 1)
+
+f.show_cart()
+
+f.remove_item("手机")
+f.show_cart()
+print(f.calculate_total())
+print(f.remove_item("电脑"))
+f.show_cart()
+
