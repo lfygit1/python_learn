@@ -1,0 +1,5 @@
+host: 192.168.110.77
+user: root
+password: xiaobai123
+database: xb_school
+port: 3306

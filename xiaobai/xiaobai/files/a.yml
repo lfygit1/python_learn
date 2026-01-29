@@ -1,0 +1,8 @@
+server:
+  port: 7010
+  max-http-header-size: 10MB
+#  设置项目名称
+#  servlet:
+#    context-path: /haha
+#在服务器运行要改成服务器的IP
+ip: 192.168.110.83
