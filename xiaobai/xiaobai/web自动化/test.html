@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小白playwright</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input::placeholder {
+            color: #999;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+            margin-left: 1rem;
+        }
+        .btn-warning:hover {
+            background: #d97706;
+        }
+        /* 悬停提示组件样式 */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            color: #2563eb;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* 悬停交互框样式 */
+        .hover-box {
+            width: 150px;
+            height: 150px;
+            background: #e0f2fe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative; /* 用于悬停提示定位 */
+        }
+        .hover-box:hover {
+            background: #bae6fd;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        /* 悬停框内置提示 */
+        .hover-box .hover-tip {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .hover-box:hover .hover-tip {
+            visibility: visible;
+            opacity: 1;
+            top: -40px; /* 轻微上移动画 */
+        }
+        /* 提示框样式 */
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .alert-warning {
+            background: #fefce8;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+    </style>
+</head>
+<body>
+    <h1 data-testid="page-title">Playwright 小白测试表单</h1>
+    <hr>
+    <br>
+	<a href="http://shop.xiaobaisoftware.com/index.php" target="_blank" title="访问示例网站（新窗口打开）" class="link-with-title">
+        小白shop
+    </a>
+    <br>
+	<a href="http://shop.xiaobaisoftware.com/index.php?con=admin&act=login" title="访问小白shop后台" class="link-with-title1">
+        小白shop后台
+    </a>
+
+    <!-- 表单区域 -->
+    <form id="test-form" name="userForm" data-testid="user-form">
+        <!-- 用户名输入框 -->
+        <div class="form-group">
+            <label for="username" data-testid="username-label">用户名</label>
+            <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                data-testid="username-input"
+                placeholder="请输入3-20位字母/数字" 
+				title="用户名输入"
+                required
+            >
+        </div>
+
+        <!-- 密码输入框 -->
+        <div class="form-group">
+            <label for="password" data-testid="password-label">密码</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                data-testid="password-input"
+                placeholder="请输入6-16位密码" 
+                required
+            >
+        </div>
+
+        <!-- 电话输入框 -->
+        <div class="form-group">
+            <label for="phone" data-testid="phone-label">手机号码</label>
+            <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                data-testid="phone-input"
+                placeholder="请输入11位手机号码" 
+                pattern="1[3-9]\d{9}"
+                required
+            >
+        </div>
+
+        <!-- 姓名输入框 -->
+        <div class="form-group">
+            <label for="fullname" data-testid="fullname-label">真实姓名</label>
+            <input 
+                type="text" 
+                id="fullname" 
+                name="fullname" 
+                data-testid="fullname-input"
+                placeholder="请输入真实姓名" 
+                required
+            >
+        </div>
+
+        <!-- 性别单选框 -->
+        <div class="form-group">
+            <label data-testid="gender-label">性别</label>
+            <div class="radio-group" data-testid="gender-group">
+                <div class="radio-item">
+                    <input 
+                        type="radio" 
+                        id="male" 
+                        name="gender" 
+                        value="male" 
+                        data-testid="gender-male"
+                        checked
+                    >
+                    <label for="male">男</label>
+                </div>
+                <div class="radio-item">
+                    <input 
+                        type="radio" 
+                        id="female" 
+                        name="gender" 
+                        value="female" 
+                        data-testid="gender-female"
+                    >
+                    <label for="female">女</label>
+                </div>
+                <div class="radio-item">
+                    <input 
+                        type="radio" 
+                        id="other" 
+                        name="gender" 
+                        value="other" 
+                        data-testid="gender-other"
+                    >
+                    <label for="other">其他</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 省份下拉框 -->
+        <div class="form-group">
+            <label for="province" data-testid="province-label">所在省份</label>
+            <select 
+                id="province" 
+                name="province" 
+                data-testid="province-select"
+                required
+            >
+                <option value="" data-testid="province-default">请选择省份</option>
+                <option value="beijing" data-testid="province-beijing">北京市</option>
+                <option value="shanghai" data-testid="province-shanghai">上海市</option>
+                <option value="guangdong" data-testid="province-guangdong">广东省</option>
+                <option value="jiangsu" data-testid="province-jiangsu">江苏省</option>
+                <option value="zhejiang" data-testid="province-zhejiang">浙江省</option>
+            </select>
+        </div>
+
+        <!-- 爱好多选框 -->
+        <div class="form-group">
+            <label data-testid="hobby-label">爱好（可多选）</label>
+            <div class="checkbox-group" data-testid="hobby-group">
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="hobby-sports" 
+                        name="hobby" 
+                        value="sports" 
+                        data-testid="hobby-sports"
+                    >
+                    <label for="hobby-sports">运动</label>
+                </div>
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="hobby-reading" 
+                        name="hobby" 
+                        value="reading" 
+                        data-testid="hobby-reading"
+                    >
+                    <label for="hobby-reading">阅读</label>
+                </div>
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="hobby-travel" 
+                        name="hobby" 
+                        value="travel" 
+                        data-testid="hobby-travel"
+                    >
+                    <label for="hobby-travel">旅行</label>
+                </div>
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="hobby-coding" 
+                        name="hobby" 
+                        value="coding" 
+                        data-testid="hobby-coding"
+                    >
+                    <label for="hobby-coding">编程</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 悬停提示组件（问号图标） -->
+        <div class="form-group">
+            <label>
+                帮助说明
+                <span class="tooltip" data-testid="tooltip-trigger">
+                    ?
+                    <span class="tooltip-text" data-testid="tooltip-content">
+                        所有带 * 的字段为必填项，请如实填写
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <!-- 悬停交互框（核心优化：悬停显示"我在这里"） -->
+        <div class="hover-box" data-testid="hover-demo-box">
+            <span data-testid="hover-demo-text">鼠标悬停我</span>
+            <span class="hover-tip" data-testid="hover-tip-content">我在这里</span>
+        </div>
+
+        <!-- 按钮区域（核心优化：警告框按钮触发确认对话框） -->
+        <div class="form-group">
+            <button 
+                type="submit" 
+                class="btn-primary" 
+                data-testid="submit-btn"
+            >
+                提交表单
+            </button>
+            <button 
+                type="button" 
+                class="btn-warning" 
+                data-testid="alert-btn"
+                onclick="showWarningWithConfirm()"  <!-- 替换原有方法 -->
+            >
+                显示警告框
+            </button>
+            <button 
+                type="button" 
+                class="btn-primary" 
+                data-testid="confirm-btn"
+                onclick="showConfirmDialog()"
+            >
+                显示确认框
+            </button>
+        </div>
+    </form>
+
+    <!-- 提示框区域 -->
+    <div class="alert alert-success" id="success-alert" data-testid="success-alert">
+        表单提交成功！
+    </div>
+    <div class="alert alert-warning" id="warning-alert" data-testid="warning-alert">
+        警告：请完善必填字段！
+    </div>
+
+    <script>
+        // 表单提交处理
+        document.getElementById('test-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('success-alert').style.display = 'block';
+            document.getElementById('warning-alert').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('success-alert').style.display = 'none';
+            }, 3000);
+        });
+
+        // 核心优化：点击警告框按钮 → 弹出确认对话框 → 根据选择显示对应提示
+        function showWarningWithConfirm() {
+            // 弹出原生确认对话框（支持确认/取消）
+            const isConfirm = confirm('警告：是否确认显示警告信息？（点击确认/取消）');
+            
+            if (isConfirm) {
+                // 点击确认：显示警告提示框
+                document.getElementById('warning-alert').style.display = 'block';
+                document.getElementById('success-alert').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('warning-alert').style.display = 'none';
+                }, 3000);
+            } else {
+                // 点击取消：弹出提示框告知用户
+                alert('你已取消显示警告信息');
+            }
+        }
+
+        // 原有确认框功能（保留）
+        function showConfirmDialog() {
+            const result = confirm('这是一个确认框，是否继续？（Playwright可捕获此对话框）');
+            if (result) {
+                alert('你点击了确认！');
+            } else {
+                alert('你点击了取消！');
+            }
+        }
+    </script>
+</body>
+</html>
