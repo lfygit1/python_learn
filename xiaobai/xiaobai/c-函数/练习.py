@@ -69,7 +69,7 @@ l_3 = [7, 9, 45, 9]
 #     if i%9==0:
 #         print(i)
 # 12、计算l_2列表中所有数的和
-print(sum(l_2))
+# print(sum(l_2))
 
 # sum1=0
 # for i in l_2:
@@ -84,8 +84,8 @@ d_2 = {
     'address':['豫','浙','冀','晋','皖','鲁','陕','湘']
 }
 # 16、对字典d_2进行遍历
-for i ,v in d_2.items():
-    print(i,v)
+# for i ,v in d_2.items():
+    # print(i,v)
 # 17、打印字典d_2中的key对应value的长度
 # for i ,v in d_2.items():
 #     print(i,(len(v))
@@ -101,8 +101,8 @@ for i ,v in d_2.items():
 #         d_2[i].append(1)
 #         print(d_2[i])
 # 20、请在address中添加江苏省的简称
-d_2['address'].append('苏')
-print(d_2)
+# d_2['address'].append('苏')
+# print(d_2)
 # 21、矩阵转置
 # 将二维列表的列，变成行，形成一个新列表
 # 第一列变成第一行
@@ -120,7 +120,7 @@ print(d_2)
 
 
 
-list04 = [[1, 2, 3, 4],[5, 6, 7, 8],[9, 10, 11, 12]]
+list04=[[1, 2, 3, 4],[5, 6, 7, 8],[9, 10, 11, 12]]
 # [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 a=0
 b=[]
@@ -130,7 +130,7 @@ for i in range(len(list04)+1):
         c.append(list04[j][a])
     a+=1
     b.append(c)
-print(b)
+# print(b)
 
 
 # 1、两数之和
@@ -144,7 +144,7 @@ print(b)
 # 有默认值参数的函数
 def greet(name="Guest"):
     return f'hello,{name}'
-print(greet('lfy'))
+# print(greet('lfy'))
 
 
 

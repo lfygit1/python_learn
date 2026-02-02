@@ -60,10 +60,11 @@ def read_yaml(file_path):
         return s
 # read_yaml(r'D:\Python_learn\files\b.yaml')
 
-# 封装为yaml文件写入操作的函数
-# yaml.dump()  #把Python对象写入到yaml文件里
+# 封装为yaml文件写入操作的函数   yaml.dump()  #把Python对象写入到yaml文件里
+#
 # s = {'姓名':'张三','年龄':25,'性别':'男','爱好':'chi'}
 # def wright_yaml(file_name):
 #     with open(file_name,'w',encoding='utf-8') as f:
 #         yaml.dump(s,f,allow_unicode=True)
 # wright_yaml(r'D:\Python_learn\files\e.yaml')
+
