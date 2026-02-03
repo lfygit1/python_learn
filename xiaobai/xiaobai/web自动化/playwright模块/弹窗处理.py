@@ -25,7 +25,6 @@ with sync_playwright()as p:
 
 
 
-
     input()
     page.close()
     browser.close()
