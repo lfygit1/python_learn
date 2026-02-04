@@ -1,8 +1,9 @@
 from playwright.sync_api import sync_playwright
 
-with sync_playwright() as p:   # 通过上下文管理器启动playwright,确保资源能自动释放
+with sync_playwright() as p:
     chrome1=p.chromium.launch(headless=False,slow_mo=500)  # 启动chrome浏览器
-    page = chrome1.new_page(viewport={"width":1680,"height":1050})  # 创建一个新页面 并设置窗口大小
+    context=chrome1.new_context(viewport={"width":1680,"height":1050})  # 通过上下文管理器启动playwright,确保资源能自动释放
+    page = context.new_page()  # 创建一个新页面 并设置窗口大小
     page.goto(r'D:\Python_learn\web自动化\test2.html')
 
     # 定位下拉框
