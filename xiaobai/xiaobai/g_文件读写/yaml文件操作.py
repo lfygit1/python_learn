@@ -54,12 +54,12 @@ ip: 192.168.110.83
 #     print(type(s))  # yaml 文件中的内容为上面的格式时，返回列表格式,列表中的值为字典格式
 #
 # 封装为yaml文件读取操作的函数
-def read_yaml(file_path):
-    with open(file_path,'r',encoding='utf-8') as f:
-        s=yaml.load(f,Loader=yaml.FullLoader)
-        return s
-# read_yaml(r'D:\Python_learn\files\b.yaml')
-
+# def read_yaml(file_path):
+#     with open(file_path,'r',encoding='utf-8') as f:
+#         s=yaml.load(f,Loader=yaml.FullLoader)
+#         return s
+# s =read_yaml(r'D:\python_learn\xiaobai\xiaobai\files\c.yaml')
+# print(s)
 # 封装为yaml文件写入操作的函数   yaml.dump()  #把Python对象写入到yaml文件里
 #
 # s = {'姓名':'张三','年龄':25,'性别':'男','爱好':'chi'}
@@ -68,3 +68,24 @@ def read_yaml(file_path):
 #         yaml.dump(s,f,allow_unicode=True)
 # wright_yaml(r'D:\Python_learn\files\e.yaml')
 
+# 用string 类中的 template 模块实现yaml文件中数据的替换
+# 首先在yaml文件中使用${变量名} 来定义变量,告知哪个变量需要被替换
+
+from string import Template
+import os
+def read_yaml_template(file_path,change_data):
+    if not os.path.isfile(file_path):  # 判断文件是否存在
+         raise FileNotFoundError('文件不存在'.format(file_path))  # 抛出异常
+    if not isinstance(change_data,dict):
+        raise TypeError('参数必须是字典格式'.format(change_data))
+    # 读取文件
+    with open(file_path,'r',encoding='utf-8') as f:
+        s = f.read()
+    # 替换数据
+    t = Template(s)
+    s = t.substitute(**change_data)
+    return s
+if __name__ == '__main__':
+    change_data = {'xiaobai123':'xiaohei','xb_school':'xiaoheischool'} 
+    s = read_yaml_template(r'D:\python_learn\xiaobai\xiaobai\files\mysql.yaml',change_data)
+    print(s)
