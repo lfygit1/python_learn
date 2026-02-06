@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标操作 + 弹窗处理</title>
+    <style>
+        /* 原有样式保留 */
+        .hover-btn { padding: 10px 20px; margin: 10px 0; cursor: pointer; }
+        .hover-tip { display: none; color: red; margin: 5px 0; }
+        .hover-btn:hover + .hover-tip { display: block; }
+        .drag-item {
+            width: 100px; height: 40px; line-height: 40px; text-align: center;
+            background: #42b983; color: white; margin: 5px 0; cursor: move;
+            user-select: none; draggable: true;
+        }
+        .drop-container {
+            width: 200px; height: 300px; border: 2px dashed #ccc;
+            margin: 20px 0; padding: 10px;
+        }
+        .drop-container.active { border-color: #42b983; background: #f0f9f5; }
+        .drag-item.dragging { opacity: 0.5; transform: scale(1.05); }
+        .dblclick-box { width: 200px; height: 100px; background: #f0ad4e; margin: 20px 0; text-align: center; line-height: 100px; cursor: pointer; }
+        .rightmenu-box { width: 200px; height: 100px; background: #337ab7; color: white; margin: 20px 0; text-align: center; line-height: 100px; }
+        .context-menu { position: absolute; width: 120px; background: white; border: 1px solid #ccc; display: none; padding: 0; list-style: none; }
+        .context-menu li { padding: 5px 10px; cursor: pointer; }
+        .context-menu li:hover { background: #f5f5f5; }
+        /* 新增弹窗按钮样式 */
+        .dialog-btn { padding: 10px 20px; margin: 10px 0; background: #dc3545; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>鼠标操作 + 弹窗处理</h1>
+
+    <!-- 原有鼠标操作场景保留 -->
+    <div class="hover-btn" data-testid="btn-hover">鼠标悬停我（显示提示）</div>
+    <div class="hover-tip" data-testid="tip-hover">悬停成功！这是提示文本~</div>
+
+    <div>拖拽排序（修复版）：</div>
+    <div class="drag-item" data-testid="drag-1">可拖拽元素 1</div>
+    <div class="drag-item" data-testid="drag-2">可拖拽元素 2</div>
+    <div class="drop-container" data-testid="drop-container">拖拽目标容器</div>
+
+    <div class="dblclick-box" data-testid="box-dblclick">双击我修改文本</div>
+
+    <div class="rightmenu-box" data-testid="box-rightclick">右键单击我</div>
+    <ul class="context-menu" data-testid="context-menu">
+        <li data-testid="menu-item1">菜单选项 1</li>
+        <li data-testid="menu-item2">菜单选项 2</li>
+        <li data-testid="menu-item3">菜单选项 3</li>
+    </ul>
+
+    <!-- 新增：弹窗触发按钮 -->
+    <div>
+        <button class="dialog-btn" data-testid="btn-alert" onclick="alert('这是警告框！')">触发警告框（Alert）</button>
+        <button class="dialog-btn" data-testid="btn-confirm" onclick="
+            const res = confirm('这是确认框！是否确定？');
+            document.querySelector('#confirm-result').textContent = res ? '点击了确定' : '点击了取消';
+        ">触发确认框（Confirm）</button>
+        <button class="dialog-btn" data-testid="btn-prompt" onclick="
+            const input = prompt('这是提示框！请输入内容：', '默认值');
+            document.querySelector('#prompt-result').textContent = input ? `输入了：${input}` : '点击了取消';
+        ">触发提示框（Prompt）</button>
+        <div id="confirm-result" data-testid="confirm-result" style="margin: 5px 0;"></div>
+        <div id="prompt-result" data-testid="prompt-result" style="margin: 5px 0;"></div>
+    </div>
+
+    <script>
+        // 原有拖拽逻辑保留
+        document.addEventListener('DOMContentLoaded', function() {
+            const dragItems = document.querySelectorAll('.drag-item');
+            const dropContainer = document.querySelector('.drop-container');
+            dragItems.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    this.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', this.getAttribute('data-testid'));
+                });
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                });
+            });
+            dropContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('active');
+            });
+            dropContainer.addEventListener('dragleave', function() {
+                this.classList.remove('active');
+            });
+            dropContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('active');
+                const dragItemId = e.dataTransfer.getData('text/plain');
+                const dragItem = document.querySelector(`[data-testid="${dragItemId}"]`);
+                if (dragItem) this.appendChild(dragItem);
+            });
+        });
+
+        // 原有双击/右键逻辑保留
+        const dblBox = document.querySelector('.dblclick-box');
+        dblBox.addEventListener('dblclick', () => {
+            dblBox.textContent = '双击成功！文本已修改';
+        });
+        const rightBox = document.querySelector('.rightmenu-box');
+        const contextMenu = document.querySelector('.context-menu');
+        rightBox.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            contextMenu.style.left = e.clientX + 'px';
+            contextMenu.style.top = e.clientY + 'px';
+            contextMenu.style.display = 'block';
+        });
+        document.addEventListener('click', () => {
+            contextMenu.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
