@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Feb 07 10:51:17 CST 2026","Sat Feb 07 10:51:17 CST 2026","13","","test_login","","","","test_select_stu_info[aa0]",""
+"passed","Sat Feb 07 10:51:17 CST 2026","Sat Feb 07 10:51:17 CST 2026","54","","test_login","","","","test_stu_message[aa0]",""
+"passed","Sat Feb 07 10:51:17 CST 2026","Sat Feb 07 10:51:17 CST 2026","45","","test_login","","","","test_edit_stu[aa0]",""
